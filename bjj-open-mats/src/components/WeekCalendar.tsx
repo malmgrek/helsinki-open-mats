@@ -67,51 +67,53 @@ export function WeekCalendar({
   const weekDates = getWeekDates(currentDate);
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-4">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-white rounded-xl shadow-lg p-6">
+      <div className="flex items-center justify-between mb-8">
         <button
           onClick={onPreviousWeek}
-          className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md font-medium transition-colors"
+          className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg font-semibold text-gray-700 transition-colors shadow-sm"
         >
           ← Previous
         </button>
-        <h2 className="text-xl font-bold text-gray-900">
+        <h2 className="text-2xl font-bold text-gray-900">
           {formatWeekRange(weekDates)}
         </h2>
         <button
           onClick={onNextWeek}
-          className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md font-medium transition-colors"
+          className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg font-semibold text-gray-700 transition-colors shadow-sm"
         >
           Next →
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3">
         {weekDates.map((date, index) => {
           const daySessions = getSessionsForDay(index, date);
           const todayClass = isToday(date);
 
           return (
-            <div key={index} className="flex flex-col">
+            <div key={index} className="flex flex-col min-h-[300px]">
               <div
-                className={`text-center p-3 rounded-t-lg font-semibold ${
+                className={`text-center p-4 rounded-t-xl font-bold shadow-sm ${
                   todayClass
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700'
+                    ? 'bg-gradient-to-br from-blue-600 to-blue-700 text-white'
+                    : 'bg-gradient-to-br from-gray-50 to-gray-100 text-gray-700 border border-gray-200'
                 }`}
               >
-                <div className="text-sm">{DAYS_OF_WEEK[index]}</div>
-                <div className="text-lg">{date.getDate()}</div>
+                <div className="text-xs uppercase tracking-wide opacity-90">{DAYS_OF_WEEK[index]}</div>
+                <div className="text-2xl font-bold mt-1">{date.getDate()}</div>
               </div>
-              <div className="flex-1 bg-gray-50 rounded-b-lg p-2 min-h-[200px] space-y-2">
+              <div className="flex-1 bg-gray-50 rounded-b-xl p-3 space-y-2 border border-t-0 border-gray-200">
                 {daySessions.length > 0 ? (
                   daySessions.map((session) => (
                     <SessionCard key={session.id} session={session} />
                   ))
                 ) : (
-                  <p className="text-gray-400 text-sm text-center mt-4">
-                    No sessions
-                  </p>
+                  <div className="flex items-center justify-center h-full">
+                    <p className="text-gray-400 text-sm text-center">
+                      No open mats
+                    </p>
+                  </div>
                 )}
               </div>
             </div>
