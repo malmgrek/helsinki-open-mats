@@ -1,4 +1,3 @@
-
 export interface OpenMatSession {
   id: string;
   gymName: string;
@@ -7,7 +6,7 @@ export interface OpenMatSession {
   startTime: string; // HH:MM format
   endTime: string;
   frequency: 'weekly' | 'monthly';
-  monthlyDate?: number; // Day of month if monthly
+  monthlyOccurrence?: 'first' | 'second' | 'third' | 'fourth' | 'last'; // Which occurrence in month
   cost: number; // 0 for free
   contactInfo: string;
   registrationLink?: string;

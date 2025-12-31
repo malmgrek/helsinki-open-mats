@@ -5,6 +5,16 @@ interface SessionCardProps {
   session: OpenMatSession;
 }
 
+const DAYS_OF_WEEK = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
+
 export function SessionCard({ session }: SessionCardProps): JSX.Element {
   const formatCost = (cost: number): string => {
     return cost === 0 ? 'Free' : `$${cost}`;
@@ -36,10 +46,12 @@ export function SessionCard({ session }: SessionCardProps): JSX.Element {
           <span className="text-gray-500 leading-snug">{session.address}</span>
         </div>
 
-        {session.frequency === 'monthly' && session.monthlyDate && (
+        {session.frequency === 'monthly' && session.monthlyOccurrence && (
           <div className="flex items-start">
             <span className="mr-1.5">📅</span>
-            <span className="text-gray-500">Monthly - {session.monthlyDate}th</span>
+            <span className="text-gray-500">
+              {session.monthlyOccurrence.charAt(0).toUpperCase() + session.monthlyOccurrence.slice(1)} {DAYS_OF_WEEK[session.dayOfWeek]} of month
+            </span>
           </div>
         )}
 

@@ -46,14 +46,79 @@ export function WeekCalendar({
     );
   };
 
+  const calculateOccurrenceInMonth = (date: Date): number => {
+    return Math.ceil(date.getDate() / 7);
+  };
+
+  const isLastOccurrenceOfDayInMonth = (date: Date): boolean => {
+    const nextWeek = new Date(date);
+    nextWeek.setDate(date.getDate() + 7);
+    return nextWeek.getMonth() !== date.getMonth();
+  };
+
+  const parseTimeToMinutes = (time: string): number => {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+
+  const checkOverlap = (session1: OpenMatSession, session2: OpenMatSession): boolean => {
+    const start1 = parseTimeToMinutes(session1.startTime);
+    const end1 = parseTimeToMinutes(session1.endTime);
+    const start2 = parseTimeToMinutes(session2.startTime);
+    const end2 = parseTimeToMinutes(session2.endTime);
+
+    return start1 < end2 && start2 < end1;
+  };
+
+  const groupOverlappingSessions = (sessions: OpenMatSession[]): OpenMatSession[][] => {
+    if (sessions.length === 0) return [];
+
+    const groups: OpenMatSession[][] = [];
+    let currentGroup: OpenMatSession[] = [sessions[0]];
+
+    for (let i = 1; i < sessions.length; i++) {
+      const currentSession = sessions[i];
+      const lastInGroup = currentGroup[currentGroup.length - 1];
+
+      if (checkOverlap(lastInGroup, currentSession)) {
+        currentGroup.push(currentSession);
+      } else {
+        groups.push(currentGroup);
+        currentGroup = [currentSession];
+      }
+    }
+
+    groups.push(currentGroup);
+    return groups;
+  };
+
   const getSessionsForDay = (dayOfWeek: number, date: Date): OpenMatSession[] => {
-    return sessions.filter((session) => {
+    const filteredSessions = sessions.filter((session) => {
       if (session.frequency === 'weekly') {
         return session.dayOfWeek === dayOfWeek;
-      } else if (session.frequency === 'monthly' && session.monthlyDate) {
-        return session.dayOfWeek === dayOfWeek && date.getDate() === session.monthlyDate;
+      } else if (session.frequency === 'monthly' && session.monthlyOccurrence) {
+        if (session.dayOfWeek !== dayOfWeek) return false;
+        
+        const occurrenceInMonth = calculateOccurrenceInMonth(date);
+        const isLastOccurrence = isLastOccurrenceOfDayInMonth(date);
+        
+        if (session.monthlyOccurrence === 'last') {
+          return isLastOccurrence;
+        } else {
+          const occurrenceMap: Record<string, number> = { 
+            first: 1, 
+            second: 2, 
+            third: 3, 
+            fourth: 4 
+          };
+          return occurrenceInMonth === occurrenceMap[session.monthlyOccurrence];
+        }
       }
       return false;
+    });
+
+    return filteredSessions.sort((a, b) => {
+      return parseTimeToMinutes(a.startTime) - parseTimeToMinutes(b.startTime);
     });
   };
 
@@ -89,6 +154,7 @@ export function WeekCalendar({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3">
         {weekDates.map((date, index) => {
           const daySessions = getSessionsForDay(index, date);
+          const sessionGroups = groupOverlappingSessions(daySessions);
           const todayClass = isToday(date);
 
           return (
@@ -104,9 +170,19 @@ export function WeekCalendar({
                 <div className="text-2xl font-bold mt-1">{date.getDate()}</div>
               </div>
               <div className="flex-1 bg-gray-50 rounded-b-xl p-3 space-y-2 border border-t-0 border-gray-200">
-                {daySessions.length > 0 ? (
-                  daySessions.map((session) => (
-                    <SessionCard key={session.id} session={session} />
+                {sessionGroups.length > 0 ? (
+                  sessionGroups.map((group, groupIdx) => (
+                    <div key={groupIdx}>
+                      {group.length > 1 ? (
+                        <div className="grid grid-cols-2 gap-2">
+                          {group.map((session) => (
+                            <SessionCard key={session.id} session={session} />
+                          ))}
+                        </div>
+                      ) : (
+                        <SessionCard key={group[0].id} session={group[0]} />
+                      )}
+                    </div>
                   ))
                 ) : (
                   <div className="flex items-center justify-center h-full">
