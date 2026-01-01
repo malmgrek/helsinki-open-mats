@@ -133,22 +133,24 @@ export function WeekCalendar({
 
   return (
     <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-200">
-      <div className="flex items-center justify-between mb-10">
-        <button
-          onClick={onPreviousWeek}
-          className="px-7 py-4 bg-gray-900 hover:bg-gray-800 rounded-xl font-bold text-white transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
-        >
-          ← Previous
-        </button>
-        <h2 className="text-3xl font-black text-gray-900 tracking-tight">
+      <div className="mb-10">
+        <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight text-center mb-6">
           {formatWeekRange(weekDates)}
         </h2>
-        <button
-          onClick={onNextWeek}
-          className="px-7 py-4 bg-gray-900 hover:bg-gray-800 rounded-xl font-bold text-white transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
-        >
-          Next →
-        </button>
+        <div className="flex items-center justify-between gap-4">
+          <button
+            onClick={onPreviousWeek}
+            className="flex-1 md:flex-none px-6 md:px-7 py-3 md:py-4 bg-gray-900 hover:bg-gray-800 rounded-xl font-bold text-white transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 whitespace-nowrap"
+          >
+            ← Previous
+          </button>
+          <button
+            onClick={onNextWeek}
+            className="flex-1 md:flex-none px-6 md:px-7 py-3 md:py-4 bg-gray-900 hover:bg-gray-800 rounded-xl font-bold text-white transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 whitespace-nowrap"
+          >
+            Next →
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4">
@@ -156,9 +158,13 @@ export function WeekCalendar({
           const daySessions = getSessionsForDay(index, date);
           const sessionGroups = groupOverlappingSessions(daySessions);
           const todayClass = isToday(date);
+          const hasSessions = sessionGroups.length > 0;
 
           return (
-            <div key={index} className="flex flex-col min-h-[320px]">
+            <div 
+              key={index} 
+              className={`flex flex-col min-h-[320px] ${!hasSessions ? 'hidden lg:flex' : ''}`}
+            >
               <div
                 className={`text-center p-5 rounded-t-2xl font-black shadow-lg transition-all ${
                   todayClass
@@ -172,7 +178,7 @@ export function WeekCalendar({
                 <div className="text-3xl font-black">{date.getDate()}</div>
               </div>
               <div className="flex-1 bg-gradient-to-br from-gray-50 to-white rounded-b-2xl p-4 space-y-3 border-2 border-t-0 border-gray-200 shadow-md">
-                {sessionGroups.length > 0 ? (
+                {hasSessions ? (
                   sessionGroups.map((group, groupIdx) => (
                     <div key={groupIdx} className="space-y-3">
                       {group.map((session) => (
