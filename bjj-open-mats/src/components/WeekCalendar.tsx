@@ -10,13 +10,13 @@ interface WeekCalendarProps {
 }
 
 const DAYS_OF_WEEK = [
-  'Sunday',
   'Monday',
   'Tuesday',
   'Wednesday',
   'Thursday',
   'Friday',
   'Saturday',
+  'Sunday',
 ];
 
 export function WeekCalendar({
@@ -28,7 +28,8 @@ export function WeekCalendar({
   const getWeekDates = (date: Date): Date[] => {
     const startOfWeek = new Date(date);
     const dayOfWeek = startOfWeek.getDay();
-    startOfWeek.setDate(startOfWeek.getDate() - dayOfWeek);
+    const daysFromMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    startOfWeek.setDate(startOfWeek.getDate() - daysFromMonday);
 
     return Array.from({ length: 7 }, (_, index) => {
       const dayDate = new Date(startOfWeek);
@@ -92,12 +93,14 @@ export function WeekCalendar({
     return groups;
   };
 
-  const getSessionsForDay = (dayOfWeek: number, date: Date): OpenMatSession[] => {
+  const getSessionsForDay = (date: Date): OpenMatSession[] => {
+    const jsDayOfWeek = date.getDay();
+    
     const filteredSessions = sessions.filter((session) => {
       if (session.frequency === 'weekly') {
-        return session.dayOfWeek === dayOfWeek;
+        return session.dayOfWeek === jsDayOfWeek;
       } else if (session.frequency === 'monthly' && session.monthlyOccurrence) {
-        if (session.dayOfWeek !== dayOfWeek) return false;
+        if (session.dayOfWeek !== jsDayOfWeek) return false;
         
         const occurrenceInMonth = calculateOccurrenceInMonth(date);
         const isLastOccurrence = isLastOccurrenceOfDayInMonth(date);
@@ -155,7 +158,7 @@ export function WeekCalendar({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4">
         {weekDates.map((date, index) => {
-          const daySessions = getSessionsForDay(index, date);
+          const daySessions = getSessionsForDay(date);
           const sessionGroups = groupOverlappingSessions(daySessions);
           const todayClass = isToday(date);
           const hasSessions = sessionGroups.length > 0;
