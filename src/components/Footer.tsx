@@ -8,12 +8,12 @@ export function Footer(): JSX.Element {
           <div className="flex items-center justify-center mb-6">
             <span className="text-5xl">🥋</span>
           </div>
-          <h3 className="text-2xl font-black mb-3 tracking-tight">BJJ Open Mat Finder</h3>
+          <h3 className="text-2xl font-black mb-3 tracking-tight">Helsinki BJJ Open Mats</h3>
           <p className="text-gray-400 text-base mb-2 font-medium">
-            © {new Date().getFullYear()} BJJ Open Mat Finder. All rights reserved.
+            © {new Date().getFullYear()} Helsinki BJJ Open Mats. All rights reserved.
           </p>
           <p className="text-gray-500 text-sm font-medium">
-            Find and share open mat sessions in your community
+            Your guide to open mat sessions in Helsinki, Espoo, and Vantaa
           </p>
         </div>
       </div>

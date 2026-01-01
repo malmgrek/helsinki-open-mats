@@ -7,10 +7,10 @@ export function Header(): JSX.Element {
         <div className="flex flex-col items-center justify-center text-center">
           <span className="text-7xl mb-6">🥋</span>
           <h1 className="text-6xl md:text-7xl font-black mb-4 tracking-tight">
-            BJJ Open Mat Finder
+            Helsinki BJJ Open Mats
           </h1>
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl">
-            Discover open mat sessions at gyms near you
+            Discover open mat sessions in the Helsinki Metropolitan Area
           </p>
         </div>
       </div>
