@@ -1,4 +1,3 @@
-import React from 'react';
 import type { OpenMatSession } from "../types/OpenMatSession";
 
 interface SessionCardProps {
@@ -15,7 +14,7 @@ const DAYS_OF_WEEK = [
   'Saturday',
 ];
 
-export function SessionCard({ session }: SessionCardProps): JSX.Element {
+export function SessionCard({ session }: SessionCardProps) {
   const formatCost = (cost: number): string => {
     return cost === 0 ? 'Free' : `$${cost}`;
   };

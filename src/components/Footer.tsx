@@ -1,6 +1,4 @@
-import React from 'react';
-
-export function Footer(): JSX.Element {
+export function Footer() {
   return (
     <footer className="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white mt-16 border-t border-gray-800">
       <div className="container mx-auto px-4 py-12">

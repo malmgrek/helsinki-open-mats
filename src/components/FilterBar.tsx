@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface FilterBarProps {
   selectedLocation: string;
   selectedDay: string;
@@ -31,7 +29,7 @@ export function FilterBar({
   onLocationChange,
   onDayChange,
   onGymChange,
-}: FilterBarProps): JSX.Element {
+}: FilterBarProps) {
   return (
     <div className="bg-white shadow-xl rounded-2xl p-8 mb-8 border border-gray-200">
       <h2 className="text-2xl font-black text-gray-900 mb-6 tracking-tight">Filter Sessions</h2>

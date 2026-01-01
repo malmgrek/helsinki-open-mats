@@ -1,4 +1,3 @@
-import React from 'react';
 import type { OpenMatSession } from '../types/OpenMatSession';
 import { SessionCard } from './SessionCard';
 
@@ -24,7 +23,7 @@ export function WeekCalendar({
   sessions,
   onPreviousWeek,
   onNextWeek,
-}: WeekCalendarProps): JSX.Element {
+}: WeekCalendarProps) {
   const getWeekDates = (date: Date): Date[] => {
     const startOfWeek = new Date(date);
     const dayOfWeek = startOfWeek.getDay();

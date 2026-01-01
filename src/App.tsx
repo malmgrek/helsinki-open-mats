@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { FilterBar } from './components/FilterBar';
@@ -12,7 +12,7 @@ import {
   filterSessionsByGym,
 } from './utils/filterSessions';
 
-function App(): JSX.Element {
+function App() {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [selectedLocation, setSelectedLocation] = useState<string>('');
   const [selectedDay, setSelectedDay] = useState<string>('All Days');

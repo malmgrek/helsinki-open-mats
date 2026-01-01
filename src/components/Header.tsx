@@ -1,6 +1,4 @@
-import React from 'react';
-
-export function Header(): JSX.Element {
+export function Header() {
   return (
     <header className="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white shadow-2xl border-b border-gray-800">
       <div className="container mx-auto px-4 py-16">
