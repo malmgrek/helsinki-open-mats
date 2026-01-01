@@ -21,35 +21,35 @@ export function SessionCard({ session }: SessionCardProps): JSX.Element {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 hover:shadow-md transition-all hover:border-blue-300">
-      <div className="flex justify-between items-start mb-2">
-        <h3 className="font-bold text-sm text-gray-900 leading-tight">{session.gymName}</h3>
+    <div className="bg-white rounded-xl shadow-md border-2 border-gray-200 p-4 hover:shadow-xl hover:border-blue-400 transition-all hover:scale-[1.02] active:scale-[0.98]">
+      <div className="flex justify-between items-start mb-3">
+        <h3 className="font-black text-sm text-gray-900 leading-tight">{session.gymName}</h3>
         <span
-          className={`px-2 py-0.5 rounded-full text-xs font-bold whitespace-nowrap ml-2 ${
+          className={`px-3 py-1 rounded-full text-xs font-black whitespace-nowrap ml-2 shadow-sm ${
             session.cost === 0
-              ? 'bg-green-100 text-green-700'
-              : 'bg-blue-100 text-blue-700'
+              ? 'bg-green-500 text-white'
+              : 'bg-blue-600 text-white'
           }`}
         >
           {formatCost(session.cost)}
         </span>
       </div>
 
-      <div className="space-y-1.5 text-xs text-gray-600">
+      <div className="space-y-2 text-xs text-gray-700">
         <div className="flex items-start">
-          <span className="mr-1.5">⏰</span>
-          <span className="font-medium">{session.startTime} - {session.endTime}</span>
+          <span className="mr-2">⏰</span>
+          <span className="font-bold">{session.startTime} - {session.endTime}</span>
         </div>
 
         <div className="flex items-start">
-          <span className="mr-1.5">📍</span>
-          <span className="text-gray-500 leading-snug">{session.address}</span>
+          <span className="mr-2">📍</span>
+          <span className="text-gray-600 leading-snug font-medium">{session.address}</span>
         </div>
 
         {session.frequency === 'monthly' && session.monthlyOccurrence && (
           <div className="flex items-start">
-            <span className="mr-1.5">📅</span>
-            <span className="text-gray-500">
+            <span className="mr-2">📅</span>
+            <span className="text-gray-600 font-medium">
               {session.monthlyOccurrence.charAt(0).toUpperCase() + session.monthlyOccurrence.slice(1)} {DAYS_OF_WEEK[session.dayOfWeek]} of month
             </span>
           </div>
@@ -60,7 +60,7 @@ export function SessionCard({ session }: SessionCardProps): JSX.Element {
             href={session.registrationLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block mt-2 px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-xs font-semibold w-full text-center"
+            className="inline-block mt-3 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-xs font-black w-full text-center shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
           >
             Register →
           </a>

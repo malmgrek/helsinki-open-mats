@@ -33,13 +33,13 @@ export function FilterBar({
   onGymChange,
 }: FilterBarProps): JSX.Element {
   return (
-    <div className="bg-white shadow-lg rounded-xl p-6 mb-6 border border-gray-100">
-      <h2 className="text-lg font-bold text-gray-900 mb-4">Filter Sessions</h2>
+    <div className="bg-white shadow-xl rounded-2xl p-8 mb-8 border border-gray-200">
+      <h2 className="text-2xl font-black text-gray-900 mb-6 tracking-tight">Filter Sessions</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
           <label
             htmlFor="location-filter"
-            className="block text-sm font-semibold text-gray-700 mb-2"
+            className="block text-sm font-bold text-gray-900 mb-3 uppercase tracking-wide"
           >
             📍 Location
           </label>
@@ -47,7 +47,7 @@ export function FilterBar({
             id="location-filter"
             value={selectedLocation}
             onChange={(e) => onLocationChange(e.target.value)}
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white shadow-sm"
+            className="w-full px-5 py-3.5 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 bg-white shadow-md text-base font-semibold transition-all hover:border-gray-400"
           >
             <option value="">All Locations</option>
             {locations.map((location) => (
@@ -61,7 +61,7 @@ export function FilterBar({
         <div>
           <label
             htmlFor="day-filter"
-            className="block text-sm font-semibold text-gray-700 mb-2"
+            className="block text-sm font-bold text-gray-900 mb-3 uppercase tracking-wide"
           >
             📅 Day of Week
           </label>
@@ -69,7 +69,7 @@ export function FilterBar({
             id="day-filter"
             value={selectedDay}
             onChange={(e) => onDayChange(e.target.value)}
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white shadow-sm"
+            className="w-full px-5 py-3.5 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 bg-white shadow-md text-base font-semibold transition-all hover:border-gray-400"
           >
             {DAYS_OF_WEEK.map((day) => (
               <option key={day} value={day}>
@@ -82,7 +82,7 @@ export function FilterBar({
         <div>
           <label
             htmlFor="gym-filter"
-            className="block text-sm font-semibold text-gray-700 mb-2"
+            className="block text-sm font-bold text-gray-900 mb-3 uppercase tracking-wide"
           >
             🥋 Gym
           </label>
@@ -90,7 +90,7 @@ export function FilterBar({
             id="gym-filter"
             value={selectedGym}
             onChange={(e) => onGymChange(e.target.value)}
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white shadow-sm"
+            className="w-full px-5 py-3.5 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 bg-white shadow-md text-base font-semibold transition-all hover:border-gray-400"
           >
             <option value="">All Gyms</option>
             {gyms.map((gym) => (
