@@ -174,16 +174,10 @@ export function WeekCalendar({
               <div className="flex-1 bg-gradient-to-br from-gray-50 to-white rounded-b-2xl p-4 space-y-3 border-2 border-t-0 border-gray-200 shadow-md">
                 {sessionGroups.length > 0 ? (
                   sessionGroups.map((group, groupIdx) => (
-                    <div key={groupIdx}>
-                      {group.length > 1 ? (
-                        <div className="grid grid-cols-2 gap-2">
-                          {group.map((session) => (
-                            <SessionCard key={session.id} session={session} />
-                          ))}
-                        </div>
-                      ) : (
-                        <SessionCard key={group[0].id} session={group[0]} />
-                      )}
+                    <div key={groupIdx} className="space-y-3">
+                      {group.map((session) => (
+                        <SessionCard key={session.id} session={session} />
+                      ))}
                     </div>
                   ))
                 ) : (
